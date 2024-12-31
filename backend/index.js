@@ -10,13 +10,6 @@ const app = express()
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
-app.options('/api/*', (req, res) => {
-  res.header('Access-Control-Allow-Origin', 'https://valton-frontend.vercel.app');
-  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  res.header('Access-Control-Allow-Credentials', 'true');
-  res.status(200).send();
-});
 app.use(cors({
     origin: 'https://valton-frontend.vercel.app',
     credentials: true
