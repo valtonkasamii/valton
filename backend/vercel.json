@@ -11,9 +11,10 @@
       "src": "/(.*)",
       "dest": "./index.js",
       "methods": ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
-      "headers": {
-        "Access-Control-Allow-Origin": "https://valton-frontend.vercel.app"
-      }
+      "headers": [
+          { "key": "Access-Control-Allow-Credentials", "value": "true" },
+        { "key": "Access-Control-Allow-Origin", "value": "https://valton-frontend.vercel.app" },
+      ]
     }
   ]
 }
