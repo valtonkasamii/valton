@@ -16,6 +16,10 @@ app.use(cors({
 }))
 app.use(cookieParser())
 
+app.options('*', (req, res) => {
+    res.sendStatus(200); // Respond to preflight requests with 200 OK
+});
+
 app.use("/api/auth", authRoutes);
 //app.use("/api/users", userRoutes);
 //app.use("/api/posts", postRoutes);
