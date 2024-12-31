@@ -8,11 +8,23 @@ dotenv.config()
 
 const app = express()
 
+app.use((req, res, next) => {
+    if (req.method === 'OPTIONS') {
+        res.header('Access-Control-Allow-Origin', 'https://valton-frontend.vercel.app'); // Replace with allowed origin
+        res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+        res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+        return res.sendStatus(204); // No Content
+    }
+    next();
+});
+
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(cors({
     origin: 'https://valton-frontend.vercel.app',
-    credentials: true
+    credentials: true,
+     allowedHeaders: ['Content-Type', 'Authorization']
+
 }))
 app.use(cookieParser())
 
