@@ -12,7 +12,8 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(cors({
     origin: 'https://valton-frontend.vercel.app',
-    credentials: true
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS', 'HEAD']
 }))
 app.use(cookieParser())
 
