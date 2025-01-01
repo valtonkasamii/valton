@@ -18,8 +18,12 @@ app.use(cors({
     credentials: true,
 }))
 app.use(cookieParser())
-app.options('*', cors());
-
+app.options('*', (req, res) => {
+    res.header('Access-Control-Allow-Origin', 'https://valton-frontend.vercel.app');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    res.sendStatus(204); // No Content
+});
 app.use('/api/auth/login', createProxyMiddleware({
     target: 'https://valton.vercel.app', // The original API URL
     changeOrigin: true,
