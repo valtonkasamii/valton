@@ -24,22 +24,6 @@ app.options('*', (req, res) => {
     res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     res.sendStatus(204); // No Content
 });
-app.use('/api/auth/login', createProxyMiddleware({
-    target: 'https://valton.vercel.app', // The original API URL
-    changeOrigin: true,
-    pathRewrite: {
-        '^/api/auth/login': '/api/auth/login', // Rewrite the path if necessary
-    },
-    onProxyReq: (proxyReq, req, res) => {
-        // You can modify the request here if needed
-        proxyReq.setHeader('Content-Type', 'application/json');
-        if (req.body) {
-            const bodyData = JSON.stringify(req.body);
-            proxyReq.write(bodyData);
-        }
-    }
-}));
-
 
 app.use("/api/auth", authRoutes);
 //app.use("/api/users", userRoutes);
