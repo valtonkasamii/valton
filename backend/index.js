@@ -3,6 +3,7 @@ import dotenv from "dotenv"
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
 import authRoutes from './routes/auth.route.js'
+import { createProxyMiddleware } from 'http-proxy-middleware';
 
 dotenv.config()
 
@@ -18,6 +19,22 @@ app.use(cors({
 }))
 app.use(cookieParser())
 app.options('*', cors());
+
+app.use('/api/auth/login', createProxyMiddleware({
+    target: 'https://valton.vercel.app', // The original API URL
+    changeOrigin: true,
+    pathRewrite: {
+        '^/api/auth/login': '/api/auth/login', // Rewrite the path if necessary
+    },
+    onProxyReq: (proxyReq, req, res) => {
+        // You can modify the request here if needed
+        proxyReq.setHeader('Content-Type', 'application/json');
+        if (req.body) {
+            const bodyData = JSON.stringify(req.body);
+            proxyReq.write(bodyData);
+        }
+    }
+}));
 
 
 app.use("/api/auth", authRoutes);
