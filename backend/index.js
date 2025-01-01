@@ -16,12 +16,7 @@ app.use(cors({
     credentials: true,
 }))
 app.use(cookieParser())
-app.options('*', (req, res) => {
-  res.header('Access-Control-Allow-Origin', 'https://valton-frontend.vercel.app');
-  res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  res.sendStatus(200); // HTTP OK status
-});
+app.options('*', cors());
 
 
 app.use("/api/auth", authRoutes);
