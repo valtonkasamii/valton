@@ -16,7 +16,7 @@ function App() {
 
   const getMe = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/auth/me", {
+      const response = await fetch("https://c374f0e2-6cfe-489c-b604-2a51c0249bbd.us-east-1.cloud.genez.io/api/auth/me", {
         credentials: "include"
       })
       if (!response.ok) {
