@@ -25,7 +25,15 @@ app.use(cors({
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
     credentials: true,
 }))
-app.options('*', cors());
+app.options('*', (req, res) => {
+    res.set({
+        "Access-Control-Allow-Origin": "https://valton-frontend.vercel.app",
+        "Access-Control-Allow-Credentials": "true",
+        "Access-Control-Allow-Headers": "X-Requested-With, Content-Type, Authorization",
+        "Access-Control-Allow-Methods": "GET, OPTIONS, PATCH, DELETE, POST, PUT"
+    });
+    res.sendStatus(200);
+});
 app.use(cookieParser())
 
 app.use("/api/auth", authRoutes);
