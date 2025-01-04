@@ -1,12 +1,13 @@
 import React, {useEffect, useState} from "react"
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
-import './App.css'
 import { Navigate, Route, Routes } from "react-router-dom"
 import HomePage from "./pages/home/HomePage"
 import LoginPage from "./pages/auth/login/LoginPage"
 import SignUpPage from "./pages/auth/signup/SignUpPage"
-
+import Navbar from "./components/Navbar"
+import './App.css'
+import ProfilePage from "./pages/profile/ProfilePage"
 
 function App() {
 
@@ -15,14 +16,13 @@ function App() {
 
   const getMe = async () => {
     try {
-      const response = await fetch("https://valton.vercel.app/api/auth/me", {
+      const response = await fetch("http://localhost:5000/api/auth/me", {
         credentials: "include"
       })
       if (!response.ok) {
         setAuth(null)
       } else {
       const data = await response.json()
-        console.log(data)
         setAuth(data)
       }
     } catch (error) {
@@ -42,8 +42,10 @@ function App() {
 
   return (
     <>
+    <Navbar />
      <Routes>
      <Route path='/' element={auth ? <HomePage /> : <Navigate to="/login"/>} />
+     <Route path='/:username' element={auth ? <ProfilePage /> : <Navigate to="/login"/>} /> 
      <Route path='/login' element={!auth ? <LoginPage /> : <Navigate to="/" />} />
       <Route path='/signup' element={!auth ? <SignUpPage /> : <Navigate to="/" />} />
      </Routes>
