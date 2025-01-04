@@ -114,7 +114,7 @@ const ProfilePage = () => {
         const username = window.location.href.split("/").pop()
 
         try {
-            const response = await fetch(`https://valton.vercel.app/api/users/profile/${username}`, {
+            const response = await fetch(`https://valton-1.onrender.com/api/users/profile/${username}`, {
                 credentials: 'include'
             })
 
