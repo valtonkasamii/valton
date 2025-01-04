@@ -25,13 +25,8 @@ app.use(cors({
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
     credentials: true,
 }))
+app.options('*', cors());
 app.use(cookieParser())
-app.options('*', (req, res) => {
-    res.header('Access-Control-Allow-Origin', 'http://localhost:5173');
-    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
-    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-    res.sendStatus(204); // No Content
-});
 
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
