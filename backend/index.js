@@ -25,15 +25,6 @@ app.use(cors({
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
     credentials: true,
 }))
-app.options('*', (req, res) => {
-    res.set({
-        "Access-Control-Allow-Origin": "https://valton-frontend.vercel.app",
-        "Access-Control-Allow-Credentials": "true",
-        "Access-Control-Allow-Headers": "X-Requested-With, Content-Type, Authorization",
-        "Access-Control-Allow-Methods": "GET, OPTIONS, PATCH, DELETE, POST, PUT"
-    });
-    res.sendStatus(200);
-});
 app.use(cookieParser())
 
 app.use("/api/auth", authRoutes);
@@ -41,6 +32,16 @@ app.use("/api/users", userRoutes);
 app.use("/api/posts", postRoutes);
 
 const PORT = process.env.PORT || 5000
+
+module.exports = (req, res) => {
+    // Handle OPTIONS (if needed explicitly)
+    if (req.method === "OPTIONS") {
+        return res.status(200).end();
+    }
+
+    // Your main logic
+    res.status(200).json({ message: "Hello from Vercel!" });
+};
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`)
