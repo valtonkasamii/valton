@@ -21,11 +21,19 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(cors({
     origin: 'https://valton-frontend.vercel.app',
-    allowedHeaders: ['X-Requested-With, Content-Type, Authorization, X-Custom-Header'],
+    allowedHeaders: ['X-Requested-With', 'Content-Type', 'Authorization', 'X-Custom-Header'],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
     credentials: true,
 }))
 app.use(cookieParser())
+
+app.options('*', (req, res) => {
+    res.header('Access-Control-Allow-Origin', 'https://valton-frontend.vercel.app');
+    res.header('Access-Control-Allow-Credentials', 'true');
+    res.header('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Authorization, X-Custom-Header');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
+    res.status(200).send(); // Send 200 OK for preflight requests
+});
 
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
