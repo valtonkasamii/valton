@@ -10,7 +10,7 @@ const LoginPage = () => {
         e.preventDefault()
 
         try {
-        const response = await fetch("https://c374f0e2-6cfe-489c-b604-2a51c0249bbd.us-east-1.cloud.genez.io/api/auth/login", {
+        const response = await fetch("https://valton.vercel.app/api/auth/login", {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify({ username, password }),

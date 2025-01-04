@@ -20,7 +20,7 @@ const app = express()
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(cors({
-    origin: 'https://blush-brainy-llama.app.genez.io',
+    origin: 'https://valton-frontend.vercel.app',
     allowedHeaders: ['X-Requested-With', 'Content-Type', 'Authorization', 'X-Custom-Header'],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
     credentials: true,
