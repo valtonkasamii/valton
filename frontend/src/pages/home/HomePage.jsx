@@ -18,7 +18,7 @@ const HomePage = () => {
 
   const getMe = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/auth/me", {
+      const response = await fetch("https://valton.vercel.app/api/auth/me", {
         credentials: "include"
       })
       if (!response.ok) {
@@ -56,7 +56,7 @@ const HomePage = () => {
     e.preventDefault()
     setLoading(true)
     try {
-        const response = await fetch("http://localhost:5000/api/posts/create", {
+        const response = await fetch("https://valton.vercel.app/api/posts/create", {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             credentials: "include",
@@ -80,7 +80,7 @@ const HomePage = () => {
 
 const allPosts = async () => {
   try {
-      const response = await fetch("http://localhost:5000/api/posts/all", {
+      const response = await fetch("https://valton.vercel.app/api/posts/all", {
           credentials: "include"
       })
 
@@ -98,7 +98,7 @@ const allPosts = async () => {
 const handleDelete = async (id) => {
   setDel(true)
   try {
-    const response = await fetch(`http://localhost:5000/api/posts/${id}`, {
+    const response = await fetch(`https://valton.vercel.app/api/posts/${id}`, {
       method: 'DELETE',
       credentials: "include"
     })
@@ -127,23 +127,6 @@ useEffect(() => {
   getMe()
 allPosts()
 }, [])
-
-const handleFollowers = async () => {
-  try {
-    const response = await fetch("http://localhost:5000/api/posts/following", {
-        credentials: "include"
-    })
-
-    if (!response.ok) {
-
-    } else {
-        const data = await response.json()
-        setPosts(data)
-    }
-} catch (error) {
-    console.error(error.message)
-}
-}
 
 const pt = () => {
   if (!loading) { return 'pt-2' } else {return 'mb-[5px]'}

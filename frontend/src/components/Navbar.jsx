@@ -8,7 +8,7 @@ const Navbar = () => {
 
   const handleClick = async () => {
     try {
-        const response = await fetch("http://localhost:5000/api/auth/logout", {
+        const response = await fetch("https://valton.vercel.app/api/auth/logout", {
             method: "POST",
             credentials: "include"
         })
@@ -27,7 +27,7 @@ const Navbar = () => {
 
   const getMe = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/auth/me", {
+      const response = await fetch("https://valton.vercel.app/api/auth/me", {
         credentials: "include"
       })
       if (!response.ok) {
