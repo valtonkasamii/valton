@@ -180,7 +180,7 @@ const ProfilePage = () => {
 
       const handleFollow = async () => {
         try {
-            const response = await fetch(`http://localhost:5000/api/users/follow/${profile.id}`, {
+            const response = await fetch(`https://valton.vercel.app/api/users/follow/${profile.id}`, {
                 credentials: 'include',
                 method: 'POST'
             })

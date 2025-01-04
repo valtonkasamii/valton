@@ -27,6 +27,14 @@ app.use(cors({
 }))
 app.use(cookieParser())
 
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', 'https://valton-frontend.vercel.app'); // Specify your frontend URL
+    res.header('Access-Control-Allow-Credentials', 'true'); // Allow credentials (cookies, authorization headers)
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS'); // Allowed methods
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization'); // Allowed headers
+    next(); // Proceed to the next middleware or route handler
+});
+
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/posts", postRoutes);
