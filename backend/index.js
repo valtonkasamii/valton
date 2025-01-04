@@ -21,7 +21,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(cors({
     origin: 'https://valton-frontend.vercel.app',
-    allowedHeaders: ['Content-Type', 'Authorization'],
+    allowedHeaders: ['X-Requested-With, Content-Type, Authorization, X-Custom-Header'],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
     credentials: true,
 }))
@@ -32,16 +32,6 @@ app.use("/api/users", userRoutes);
 app.use("/api/posts", postRoutes);
 
 const PORT = process.env.PORT || 5000
-
-module.exports = (req, res) => {
-    // Handle OPTIONS (if needed explicitly)
-    if (req.method === "OPTIONS") {
-        return res.status(200).end();
-    }
-
-    // Your main logic
-    res.status(200).json({ message: "Hello from Vercel!" });
-};
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`)
