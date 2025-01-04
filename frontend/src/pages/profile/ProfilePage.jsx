@@ -16,7 +16,7 @@ const ProfilePage = () => {
     
     const getMe = async () => {
         try {
-          const response = await fetch("https://valton.vercel.app/api/auth/me", {
+          const response = await fetch("https://valton-1.onrender.com/api/auth/me", {
             credentials: "include"
           })
           if (!response.ok) {
@@ -35,7 +35,7 @@ const ProfilePage = () => {
         e.preventDefault()
         setLoading(true)
         try {
-            const response = await fetch("https://valton.vercel.app/api/posts/create", {
+            const response = await fetch("https://valton-1.onrender.com/api/posts/create", {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
                 credentials: "include",
@@ -93,7 +93,7 @@ const ProfilePage = () => {
           const handleDelete = async (id) => {
             setDel(true)
             try {
-              const response = await fetch(`https://valton.vercel.app/api/posts/${id}`, {
+              const response = await fetch(`https://valton-1.onrender.com/api/posts/${id}`, {
                 method: 'DELETE',
                 credentials: "include"
               })
@@ -163,7 +163,7 @@ const ProfilePage = () => {
       const allPosts = async () => {
         if (!profile) return
         try {
-            const response = await fetch(`https://valton.vercel.app/api/posts/user/${profile.username}`, {
+            const response = await fetch(`https://valton-1.onrender.com/api/posts/user/${profile.username}`, {
                 credentials: "include"
             })
       
@@ -180,7 +180,7 @@ const ProfilePage = () => {
 
       const handleFollow = async () => {
         try {
-            const response = await fetch(`https://valton.vercel.app/api/users/follow/${profile.id}`, {
+            const response = await fetch(`https://valton-1.onrender.com/api/users/follow/${profile.id}`, {
                 credentials: 'include',
                 method: 'POST'
             })

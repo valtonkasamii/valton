@@ -16,7 +16,7 @@ function App() {
 
   const getMe = async () => {
     try {
-      const response = await fetch("https://valton.vercel.app/api/auth/me", {
+      const response = await fetch("https://valton-1.onrender.com/api/auth/me", {
         credentials: "include"
       })
       if (!response.ok) {

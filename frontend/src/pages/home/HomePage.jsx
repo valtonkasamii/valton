@@ -18,7 +18,7 @@ const HomePage = () => {
 
   const getMe = async () => {
     try {
-      const response = await fetch("https://valton.vercel.app/api/auth/me", {
+      const response = await fetch("https://valton-1.onrender.com/api/auth/me", {
         credentials: "include"
       })
       if (!response.ok) {
@@ -56,7 +56,7 @@ const HomePage = () => {
     e.preventDefault()
     setLoading(true)
     try {
-        const response = await fetch("https://valton.vercel.app/api/posts/create", {
+        const response = await fetch("https://valton-1.onrender.com/api/posts/create", {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             credentials: "include",
@@ -80,7 +80,7 @@ const HomePage = () => {
 
 const allPosts = async () => {
   try {
-      const response = await fetch("https://valton.vercel.app/api/posts/all", {
+      const response = await fetch("https://valton-1.onrender.com/api/posts/all", {
           credentials: "include"
       })
 
@@ -98,7 +98,7 @@ const allPosts = async () => {
 const handleDelete = async (id) => {
   setDel(true)
   try {
-    const response = await fetch(`https://valton.vercel.app/api/posts/${id}`, {
+    const response = await fetch(`https://valton-1.onrender.com/api/posts/${id}`, {
       method: 'DELETE',
       credentials: "include"
     })
