@@ -2,7 +2,6 @@ import { PrismaClient } from "@prisma/client";
 import jwt from "jsonwebtoken"
 
 const prisma = new PrismaClient();
-const abc = "asdasda"
 
 export const protectRoute = async (req, res, next) => {
     try {
