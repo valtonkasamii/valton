@@ -140,11 +140,8 @@ const ProfilePage = () => {
 
 
     useEffect(() => {
-            allPosts();
             if (profile && auth) {
-                if (profile.followers.some(e => e.followingId == auth.id)) {
-                    setFollow("Unfollow")
-                } else {setFollow("Follow")}
+              allPosts();
             }
     }, [auth])
 
@@ -154,7 +151,7 @@ const ProfilePage = () => {
                 setFollow("Unfollow")
             } else {setFollow("Follow")}
         }
-}, [profile])
+}, [auth, profile])
    
     const pt = () => {
         if (!loading) { return 'pt-2' } else {return 'mb-[5px]'}
