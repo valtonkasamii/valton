@@ -36,6 +36,7 @@ const SignUpPage = () => {
   return (
     <div className='flex flex-col justify-center items-center h-[100vh]'>
 
+<p className='text-center rounded-[20px] text-[silver] text-[17px] mb-2  w-[340px] sm:w-[500px]'>You need to disable 'Prevent Cross-Site Tracking' because my frontend and backend are on different domains (cross-origin).</p>
 
 <div className='bg-[#222222] flex justify-center items-center flex-col border- border-[#222222] px-10 pt-4 pb-3 rounded-[30px]'>
         
