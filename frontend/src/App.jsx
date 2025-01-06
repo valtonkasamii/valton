@@ -37,7 +37,7 @@ function App() {
   }, [])
 
   if (loading) {
-    return <div className="flex flex-col h-[100vh] justify-center items-center text-5xl text-white font-[500]"><h1>Loading...</h1><p className="text-xl text-[silver] text-center">It will take a minute to load<br/>because the backend is hosted with render's free plan<br/>which has bad cold starts.</p></div>
+    return <div className="flex flex-col h-[100vh] justify-center items-center text-5xl text-white font-[500]"><h1>Loading...</h1><p className="text-xl mt-5 text-[silver] text-center">It will take a minute to load<br/>because the backend is hosted with render's free plan<br/>which has bad cold starts.</p></div>
   }
 
   return (
