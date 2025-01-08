@@ -12,7 +12,8 @@ export const getUserProfile = async (req, res) => {
                 following: true,
                 followers: true,
                 username: true,
-                id: true
+                id: true,
+                profileImg: true
             }
         });
 
@@ -32,7 +33,6 @@ export const followUnfollowUser = async (req, res) => {
     const { id } = req.params;
 
     try {
-        // Ensure target user and current user exist
         const userToModify = await prisma.user.findUnique({ where: { id } });
         const currentUser = await prisma.user.findUnique({ where: { id: req.user.id } });
 
@@ -44,7 +44,6 @@ export const followUnfollowUser = async (req, res) => {
             return res.status(400).json({ error: "User not found" });
         }
 
-        // Check if the follow relationship exists
         const existingFollow = await prisma.follow.findFirst({
             where: {
                 followerId: id,
@@ -53,17 +52,15 @@ export const followUnfollowUser = async (req, res) => {
         });
 
         if (existingFollow) {
-            // Unfollow: Delete the follow relationship
             await prisma.follow.delete({
                 where: { id: existingFollow.id },
             });
             return res.status(200).json({ message: "User unfollowed successfully" });
         } else {
-            // Follow: Create a new follow relationship
             await prisma.follow.create({
                 data: {
-                    followerId: id, // Current user doing the following
-                    followingId: req.user.id,        // Target user being followed
+                    followerId: id, 
+                    followingId: req.user.id,        
                 },
             });
             return res.status(200).json({ message: "User followed successfully" });
@@ -73,3 +70,58 @@ export const followUnfollowUser = async (req, res) => {
         return res.status(500).json({ error: error.message });
     }
 };
+
+export const newPfp = async (req, res) => {
+    try {
+        const { pfp } = req.body;
+        const userId = req.user.id
+
+        const user = await prisma.user.findUnique({ where: { id: userId } });
+        if (!user) return res.status(404).json({ message: "User not found" });
+
+        let imageUrl = pfp;
+        if (pfp) {
+            const uploadedResponse = await cloudinary.uploader.upload(pfp);
+            imageUrl = uploadedResponse.secure_url;
+        }
+
+        await prisma.user.update({
+            where: { id: userId },
+            data: { profileImg: imageUrl },
+        });
+
+        res.status(201).json(user);
+    } catch (error) {
+        console.error("Error in createPost controller:", error);
+        res.status(500).json({ error: "Internal server error" });
+    }
+};
+
+export const search = async (req, res) => {
+    try {
+      const { search } = req.body;
+  
+      if (!search) {
+        return res.status(400).json({ message: "Search term is required." });
+      }
+  
+      const users = await prisma.user.findMany({
+        where: {
+          username: {
+            startsWith: search,  
+            mode: 'insensitive', 
+          },
+        },
+        take: 5,
+      });
+  
+      if (users.length === 0) {
+        return res.status(404).json({ message: "No users found." });
+      }
+  
+      res.status(200).json(users);
+    } catch (error) {
+      console.error("Error in search controller:", error);
+      res.status(500).json({ error: "Internal server error." });
+    }
+  };

@@ -63,91 +63,6 @@ export const deletePost = async (req, res) => {
     }
 };
 
-export const commentOnPost = async (req, res) => {
-    try {
-        const { text } = req.body;
-        const postId = req.params.id;
-        const userId = req.user._id;
-
-        if (!text) {
-            return res.status(400).json({ error: "Text field is required" });
-        }
-
-        const post = await prisma.post.findUnique({ where: { id: postId } });
-
-        if (!post) {
-            return res.status(404).json({ error: "Post not found" });
-        }
-
-        const comment = { userId, text };
-
-        await prisma.post.update({
-            where: { id: postId },
-            data: {
-                comments: { push: comment }, // Assuming comments are stored as an array of objects
-            },
-        });
-
-        res.status(200).json(post);
-    } catch (error) {
-        console.error("Error in commentOnPost controller:", error);
-        res.status(500).json({ error: "Internal server error" });
-    }
-};
-
-export const likeUnlikePost = async (req, res) => {
-    try {
-        const userId = req.user._id;
-        const { id: postId } = req.body;
-
-        const post = await prisma.post.findUnique({ where: { id: postId } });
-
-        if (!post) {
-            return res.status(404).json({ error: "Post not found" });
-        }
-
-        const userLikedPost = post.likes.includes(userId);
-
-        if (userLikedPost) {
-            // Unlike post
-            await prisma.post.update({
-                where: { id: postId },
-                data: { likes: { set: post.likes.filter(id => id !== userId) } },
-            });
-            await prisma.user.update({
-                where: { id: userId },
-                data: { likedPosts: { set: post.likedPosts.filter(id => id !== postId) } },
-            });
-            res.status(200).json({ message: "Post unliked successfully" });
-            
-        } else {
-            // Like post
-            await prisma.post.update({
-                where: { id: postId },
-                data: { likes: { push: userId } },
-            });
-            await prisma.user.update({
-                where: { id: userId },
-                data: { likedPosts: { push: postId } },
-            });
-
-            // Create notification for liking the post
-            await prisma.notification.create({
-                data: {
-                    fromUserId: userId,
-                    toUserId: post.user.id,
-                    type: "like",
-                },
-            });
-
-            res.status(200).json({ message: "Post liked successfully" });
-        }
-    } catch (error) {
-        console.error("Error in likeUnlikePost controller:", error);
-        res.status(500).json({ error: "Internal server error" });
-    }
-};
-
 export const getAllPosts = async (req, res) => {
     try {
         const posts = await prisma.post.findMany({
@@ -201,3 +116,34 @@ export const getUserPosts = async (req, res) => {
 		res.status(500).json({ error : "Internal server error" });
 	}
 };
+
+export const getPostsFromFollowings = async (req, res) => {
+    try {
+      const userId = req.user.id;
+  
+      const following = await prisma.follow.findMany({
+        where: {
+          followingId: userId, 
+        },
+        select: {
+          followerId: true, 
+        },
+      });
+  
+      const followingIds = following.map(follow => follow.followerId);
+  
+      const posts = await prisma.post.findMany({
+        where: {
+          userId: { in: followingIds }, 
+        },
+        include: {
+          user: true, 
+        },
+      });
+  
+      res.status(200).json(posts);
+	} catch (error) {
+		console.error("Error in getUserPosts controller:", error);
+		res.status(500).json({ error : "Internal server error" });
+	}
+  };

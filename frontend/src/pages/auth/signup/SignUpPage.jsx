@@ -34,15 +34,18 @@ const SignUpPage = () => {
       }
   }
   return (
-    <div className='flex flex-col justify-center items-center h-[100vh]'>
+    <div className='flex flex-col justify-center items-center h-[calc(100vh-80px)]'>
 
-<p className='text-center rounded-[20px] text-[silver] text-[17px] mb-2  w-[340px] sm:w-[500px]'>You need to disable 'Prevent Cross-Site Tracking' because my frontend and backend are on different domains (cross-origin).</p>
+<p className='text-center rounded-[20px] text-[silver] text-[17px] mb-2 px-5'>You need to disable 'Prevent Cross-Site Tracking' because my frontend and backend are on different domains (cross-origin).</p>    
 
 <div className='bg-[#222222] flex justify-center items-center flex-col border- border-[#222222] px-10 pt-4 pb-3 rounded-[30px]'>
         
             <form onSubmit={handleSubmit} className='text-xl flex flex-col items-center space-y-3'>
-                <input value={username} onChange={(e) => setUsername(e.target.value)} required placeholder='username' className='h-[30px] pb-[3px] px-2 w-[200px] bg-[#444444] rounded-[30px] flex items-center justify-center' type='username'></input>
-                <input value={password} onChange={(e) => setPassword(e.target.value)} required placeholder='password' className='h-[30px] pb-[3px] px-2 w-[200px] bg-[#444444] rounded-[30px]' type='password'></input>
+                <input maxLength="12" value={username} onChange={(e) => {
+    const newValue = e.target.value.replace(/\s/g, '');
+    setUsername(newValue);
+  }} required placeholder='username' className='h-[30px] pb-[3px] px-2 w-[200px] bg-[#444444] rounded-[30px] flex items-center justify-center' type='text'></input>
+                <input maxLength="40" value={password} onChange={(e) => setPassword(e.target.value)} required placeholder='password' className='h-[30px] pb-[3px] px-2 w-[200px] bg-[#444444] rounded-[30px]' type='password'></input>
                 <button className='bg-[#444444] px-3 rounded-full text-[silver] pb-1 font-[500]'>Sign Up</button>
             </form>
             {error && <p className='text-[red] mb-[-6px] mt-1'>{error}</p>}
