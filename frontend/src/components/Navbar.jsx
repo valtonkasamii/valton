@@ -78,11 +78,11 @@ const Navbar = () => {
     <div>
       
     {!auth && <div className='flex items-center justify-center h-[80px] w-full bg-[#222222] absolute'>
-    <a href='/' className='font-[600] text-4xl text-[silver] bg-[#555555] px-3 py-1 rounded-full'>VALTON</a>
+    <a href='/' className='font-[500] text-4xl text-[silver] bg-[#555555] px-3 py-1 rounded-full'>VALTON</a>
     </div>}
 
     {auth && <div className='flex items-center justify-between px-5 h-[80px] w-full bg-[#222222] absolute'>
-    <a href='/' className='font-[600] text-4xl text-[silver] bg-[#555555] px-3 py-1 rounded-full'>VALTON</a>
+    <a href='/' className='font-[500] text-4xl text-[silver] bg-[#555555] px-3 py-1 rounded-full'>VALTON</a>
       <div className='flex items-center space-x-2'>
         <div onClick={() => setSearch2(!search2)} className='w-[50px] rounded-full h-[50px] bg-[#666666] flex items-center justify-center cursor-pointer'><FontAwesomeIcon className='text-[32px]   rounded-full' icon={faSearch}/></div>
       <a className='w-[50px] rounded-full h-[50px] bg-[#666666] flex items-center justify-center' href='/'><FontAwesomeIcon className='text-[28px] rounded-full' icon={faHome}/></a>    
