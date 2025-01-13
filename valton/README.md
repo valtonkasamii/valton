@@ -6,6 +6,7 @@ This project was built with: 👇<br>
 - Prisma <br>
 - MongoDB <br>
 - Cloudinary <br>
-- Bcrypt <br>
-- JWT <br>
 - React & tailwindcss<br>
+<br>
+When it comes to security, the passwords are hashed using bcrypt so even i cant see the passwords. <br>
+I've also used JWT Tokens for auth.
