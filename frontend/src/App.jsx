@@ -34,8 +34,8 @@ function App() {
     getMe()
   }, [])
 
-  if (loading) {
-    return <div className="flex flex-col h-[100vh] justify-center items-center text-5xl text-white font-[500]"><h1>Loading...</h1><p className="text-xl mt-3 text-[silver] text-center px-5">It will take a minute to load because the backend is hosted with render's free plan which has bad cold starts.</p></div>
+  if (!loading) {
+    return <div className="flex flex-col h-[100vh] justify-center items-center text-5xl text-white font-[500]"><h1>Loading...</h1><p className="text-xl mt-5 text-[silver] text-center px-2 py-1 rounded-[30px] mx-10 bg-[#222222]">It will take a minute to load because the backend is hosted with render's free plan which has bad cold starts.</p></div>
   }
 
   return (

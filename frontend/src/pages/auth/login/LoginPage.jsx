@@ -36,7 +36,7 @@ const LoginPage = () => {
   return (
     <div className='flex flex-col justify-center items-center h-[calc(100vh-80px)]'>
 
-        <p className='text-center rounded-[20px] text-[silver] text-[17px] mb-2 px-5'>You need to disable 'Prevent Cross-Site Tracking' because my frontend and backend are on different domains (cross-origin).</p>    
+        <p className='text-center rounded-[20px] text-[silver] text-[18px] mb-2 px-3 py-1 bg-[#333333]'>Please disable Cross-Origin blocks</p>    
     
         <div className='bg-[#222222] flex justify-center items-center flex-col border- border-[#222222] px-10 pt-4 pb-3 rounded-[30px]'>
         
